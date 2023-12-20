@@ -1,37 +1,31 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import { Title } from '@angular/platform-browser';
+import { Router, NavigationEnd } from '@angular/router';
+import { IconSetService } from '@coreui/icons-angular';
+import { iconSubset } from './icons/icon-subset';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
+  title = 'CoreUI Free Angular Admin Template';
 
-  constructor(private http: HttpClient) {}
+  constructor(private router: Router,
+    private titleService: Title,
+    private iconSetService: IconSetService) {
+    titleService.setTitle(this.title);
+    iconSetService.icons = { ...iconSubset };
+  }
 
   ngOnInit() {
-    this.getForecasts();
-  }
-
-  getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
       }
-    );
+    });
   }
 
-  title = 'mqttdashboard.client';
 }

@@ -1,14 +1,9 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LayoutModule } from './layout/layout.module';
-import { PagesModule } from './pages/pages.module';
+import { CommonModule } from '@angular/common';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { MainHeaderComponent } from './main-header/main-header.component';
+import { MainFooterComponent } from './main-footer/main-footer.component';
 
 import {
   AvatarModule,
@@ -30,13 +25,17 @@ import {
   TabsModule,
   UtilitiesModule
 } from '@coreui/angular';
-
-import { IconModule, IconSetService } from '@coreui/icons-angular';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from '../app-routing.module';
+import { IconModule } from '@coreui/icons-angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    MainLayoutComponent,
+    MainHeaderComponent,
+    MainFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -64,11 +63,10 @@ import { IconModule, IconSetService } from '@coreui/icons-angular';
     BadgeModule,
     ListGroupModule,
     CardModule,
-    NgScrollbarModule,
-    LayoutModule,
-    PagesModule
+    NgScrollbarModule
   ],
-  providers: [IconSetService],
-  bootstrap: [AppComponent]
+  exports: [
+    MainLayoutComponent
+  ]
 })
-export class AppModule { }
+export class LayoutModule { }
